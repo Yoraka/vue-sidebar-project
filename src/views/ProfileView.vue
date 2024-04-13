@@ -32,17 +32,40 @@
           </el-col>
         </el-row>
         <el-row :gutter="20">
-          <el-col :span="18">
-            <el-card>
-              <template #header>
-                <div class="card-header">
-                  <span>文字释义显示在此</span>
+            <el-col :span="18">
+                <el-card>
+                <template #header>
+                    <div class="card-header">
+                    <span>文字数据</span>
+                    </div>
+                </template>
+                <el-skeleton :rows="3" animated v-if="loading"></el-skeleton>
+                <div v-else>
+                    <!-- Render definitions using Element UI cards -->
+                    <el-card class="definition-card" v-if="character">
+                    <div class="text-display">
+                        <p v-if="character">字：{{ character }}</p>
+                        <p v-if="characterRadical">部首：{{ characterRadical }}</p>
+                        <p v-if="characterStrokes">笔画：{{ characterStrokes }}</p>
+                    </div>
+                    </el-card>
+                    <el-card
+                    v-for="(definition, index) in characterDefinitions"
+                    :key="index"
+                    class="definition-card"
+                    shadow="always">
+                    <template #header>
+                        <div style="text-align: left;">{{ definition.pinyin }} - {{ definition.rhyme_book }}</div>
+                    </template>
+                    <div style="text-align: left;">
+                        <ul>
+                        <li v-for="(meaning, mIndex) in definition.meanings" :key="mIndex">{{ meaning }}</li>
+                        </ul>
+                    </div>
+                    </el-card>
                 </div>
-              </template>
-              <el-skeleton :rows="3" animated v-if="loading"></el-skeleton>
-              <div v-else>{{ characterMeaning }}</div>
-            </el-card>
-          </el-col>
+                </el-card>
+            </el-col>
           <el-col :span="6">
             <el-card>
               <template #header>
@@ -61,6 +84,7 @@
 
 <script>
 import SideBar from '@/components/Sidebar.vue'
+
 export default {
   name: 'MainContent',
   components: {
@@ -70,7 +94,7 @@ export default {
     return {
       searchText: '',
       loading: false,
-      characterMeaning: '',
+      characterDefinitions: [], // Store definitions directly
       relatedCharacters: '',
       exportOptions: [
         { label: '导出csv', value: 'csv' },
@@ -81,14 +105,35 @@ export default {
   methods: {
     searchCharacter () {
       this.loading = true
-      this.characterMeaning = ''
-      this.relatedCharacters = ''
-
-      // 模拟数据加载和渲染过程
       setTimeout(() => {
-        this.loading = false
-        this.characterMeaning = '这里将显示搜索结果的文字释义。'
-        this.relatedCharacters = '这里将显示相关文字列表。'
+        import('@/assets/characters.json')
+          .then((data) => {
+            const characterData = data.default // Adjust based on JSON import
+            if (characterData.character === this.searchText) {
+              this.character = characterData.character
+              this.characterRadical = characterData.radical
+              this.characterStrokes = characterData.strokes
+              this.characterDefinitions = characterData.definitions
+              this.relatedCharacters = `说
+               說
+               言
+               话
+               話
+               语
+               語
+               `
+            } else {
+              this.characterDefinitions = []
+              this.relatedCharacters = ''
+            }
+            this.loading = false
+          })
+          .catch(error => {
+            console.error('Error fetching the character data:', error)
+            this.loading = false
+            this.characterDefinitions = []
+            this.relatedCharacters = '加载数据时出错'
+          })
       }, 2000)
     }
   }
@@ -109,6 +154,13 @@ export default {
     font-weight: bold;
   }
   .el-row:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .text-display{
+    white-space: pre-wrap;
+  }
+  .definition-card {
+    text-align: left;
     margin-bottom: 20px;
   }
   </style>

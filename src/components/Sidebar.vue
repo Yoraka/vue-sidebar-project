@@ -3,19 +3,19 @@
       <el-card class="menu-card" shadow="hover" @click="navigateTo('/home')">
         <div class="menu-item">
           <i class="el-icon-house"></i>
-          <span>Home</span>
+          <span>主页</span>
         </div>
       </el-card>
       <el-card class="menu-card" shadow="hover" @click="navigateTo('/profile')">
         <div class="menu-item">
           <i class="el-icon-user"></i>
-          <span>Profile</span>
+          <span>文字检索器</span>
         </div>
       </el-card>
       <el-card class="menu-card" shadow="hover" @click="navigateTo('/settings')">
         <div class="menu-item">
           <i class="el-icon-setting"></i>
-          <span>Settings</span>
+          <span>导出器</span>
         </div>
       </el-card>
     </el-menu>

@@ -1,0 +1,50 @@
+{
+    "character": "説",
+    "variants": [],
+    "synonyms": [],
+    "radical": "言",
+    "strokes": 14,
+    "definitions": [
+        {
+            "type": "multi_sound_multi_meaning",
+            "pinyin": "shuō",
+            "rhyme_book": "《廣韻》失爇切，入薛書。月部。",
+            "meanings": [
+                "讲述",
+                "解释",
+                "评议；谈论",
+                "道理；学说",
+                "告诉",
+                "劝告；责备",
+                "说合，介绍",
+                "以为",
+                "古代*墨*家逻辑的名词，指推理",
+                "古文体之一",
+                "*周*代的祭祀名"
+            ]
+        },
+        {
+            "type": "multi_sound_multi_meaning",
+            "pinyin": "shuì",
+            "rhyme_book": "《廣韻》舒芮切，去祭書。月部。",
+            "meanings": [
+                "劝说别人，使之听从自己的意见"
+            ]
+        },
+        {
+            "type": "multi_sound_multi_meaning",
+            "pinyin": "yuè",
+            "rhyme_book": "《廣韻》弋雪切，入薛以。月部。",
+            "meanings": [
+                "姓"
+            ]
+        },
+        {
+            "type": "multi_sound_single_meaning",
+            "pinyin": "tuō",
+            "rhyme_book": "《洪武正韻》他栝切。",
+            "meanings": []
+        }
+    ],
+    "special_entries": []
+}
