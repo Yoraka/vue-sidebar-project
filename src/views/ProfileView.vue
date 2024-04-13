@@ -44,9 +44,9 @@
                     <!-- Render definitions using Element UI cards -->
                     <el-card class="definition-card" v-if="character">
                     <div class="text-display">
-                        <p v-if="character">字：{{ character }}</p>
-                        <p v-if="characterRadical">部首：{{ characterRadical }}</p>
-                        <p v-if="characterStrokes">笔画：{{ characterStrokes }}</p>
+                        <p v-if="character">字：{{ this.character }}</p>
+                        <p v-if="characterRadical">部首：{{ this.characterRadical }}</p>
+                        <p v-if="characterStrokes">笔画：{{ this.characterStrokes }}</p>
                     </div>
                     </el-card>
                     <el-card
