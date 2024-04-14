@@ -5,7 +5,7 @@
         <h1 class="text-center mb-6">汉语大字典文字检索器</h1>
         <el-row class="mb-4" :gutter="20">
           <el-col :span="16">
-            <el-input placeholder="输入单个文字" v-model="searchText"></el-input>
+            <el-input placeholder="输入单个文字" v-model="searchText" @input="handleInput"></el-input>
           </el-col>
           <el-col :span="2">
             <el-button type="primary" @click="searchCharacter">搜索</el-button>
@@ -103,38 +103,32 @@ export default {
     }
   },
   methods: {
+    handleInput (value) {
+      if (value.length > 1) {
+        this.searchText = value.charAt(0) // 保留第一个字符
+      }
+    },
     searchCharacter () {
       this.loading = true
-      setTimeout(() => {
-        import('@/assets/characters.json')
-          .then((data) => {
-            const characterData = data.default // Adjust based on JSON import
-            if (characterData.character === this.searchText) {
-              this.character = characterData.character
-              this.characterRadical = characterData.radical
-              this.characterStrokes = characterData.strokes
-              this.characterDefinitions = characterData.definitions
-              this.relatedCharacters = `说
-               說
-               言
-               话
-               話
-               语
-               語
-               `
-            } else {
-              this.characterDefinitions = []
-              this.relatedCharacters = ''
-            }
-            this.loading = false
-          })
-          .catch(error => {
-            console.error('Error fetching the character data:', error)
-            this.loading = false
-            this.characterDefinitions = []
-            this.relatedCharacters = '加载数据时出错'
-          })
-      }, 2000)
+      fetch(`http://localhost:3000/search/${this.searchText}`)
+        .then(response => {
+          if (!response.ok) throw new Error('Character not found')
+          return response.json()
+        })
+        .then(data => {
+          this.character = data.character
+          this.characterRadical = data.radical
+          this.characterStrokes = data.strokes
+          this.characterDefinitions = data.definitions
+          this.relatedCharacters = data.relatedCharacters
+          this.loading = false
+        })
+        .catch(error => {
+          console.error('Error fetching the character data:', error)
+          this.characterDefinitions = []
+          this.relatedCharacters = '加载数据时出错'
+          this.loading = false
+        })
     }
   }
 }
