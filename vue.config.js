@@ -3,6 +3,9 @@ const webpack = require('webpack')
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  devServer: {
+    allowedHosts: 'all'
+  },
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({

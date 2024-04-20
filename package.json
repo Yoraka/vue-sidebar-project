@@ -38,7 +38,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-vue": "^7.0.0",
-    "lint-staged": "^11.1.2"
+    "lint-staged": "^11.1.2",
+    "sass": "^1.75.0"
   },
   "eslintConfig": {
     "root": true,
